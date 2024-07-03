@@ -25,7 +25,7 @@ class _frontState extends State<front> {
             margin: EdgeInsets.only(top:30),
             decoration: BoxDecoration( color: Colors.green, borderRadius : BorderRadius.circular(20),),
             child: TextButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> Login()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> Signup()));
             },child: Text("Get Started",style: TextStyle(color: Colors.white, fontSize: 25),),
 
 
