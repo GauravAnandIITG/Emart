@@ -6,18 +6,31 @@ import 'package:ecommerce/widget/support.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
  class Home extends StatefulWidget {
    const Home({super.key});
    @override
    State<Home> createState() => _HomeState();
  }
  class _HomeState extends State<Home> {
+   String name = '';
    List categories = [
      "assests/TV.png",
      "assests/cloth.png",
    ];
    int isSelected =0;
+   @override
+   void initState() {
+     super.initState();
+     loadUserProfile();
+   }
 
+   loadUserProfile() async {
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+     setState(() {
+       name = prefs.getString('name') ?? '';
+     });
+   }
 
    @override
    Widget build(BuildContext context) {
@@ -35,7 +48,7 @@ import 'package:flutter/widgets.dart';
                      Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: [
-                           Text("Hey, Gaurav", style: TextStyle(
+                           Text("Hey, $name", style: TextStyle(
                                color: Colors.black,
                                fontSize: 30,
                                fontWeight: FontWeight.bold),),

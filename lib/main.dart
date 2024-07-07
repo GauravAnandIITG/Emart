@@ -8,9 +8,12 @@ import 'package:flutter/material.dart';
 import 'pages/front_page.dart';
 import 'pages/home.dart';
 import 'package:provider/provider.dart';
-
-void main() {
+Future<void> main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+  );
   runApp(const MyApp());
+
 }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
