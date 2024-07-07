@@ -9,9 +9,6 @@ import 'pages/front_page.dart';
 import 'pages/home.dart';
 import 'package:provider/provider.dart';
 Future<void> main()async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-  );
   runApp(const MyApp());
 
 }
