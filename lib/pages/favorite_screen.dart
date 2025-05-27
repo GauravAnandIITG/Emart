@@ -29,6 +29,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   itemBuilder:(context,index){
                     return Padding(padding: EdgeInsets.all(10),
                       child: Slidable(
+
                         endActionPane:ActionPane(motion: const ScrollMotion(), children: [
                           SlidableAction(onPressed: (context){
                             finalList.removeAt(index);

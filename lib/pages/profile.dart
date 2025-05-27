@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:ecommerce/models/authentication.dart';
 import 'package:ecommerce/pages/front_page.dart';
 import 'package:ecommerce/widget/support.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileView extends StatefulWidget {
@@ -20,14 +23,21 @@ class _ProfileViewState extends State<ProfileView> {
     super.initState();
     loadUserProfile();
   }
+  final ImagePicker _picker = ImagePicker();
+  XFile? file;
+
 
   loadUserProfile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       name = prefs.getString('name') ?? '';
       email = prefs.getString('email') ?? '';
-    });
+      final imagePath = prefs.getString('profileImagePath');
+      if (imagePath != null) {
+        file = XFile(imagePath);
+    }});
   }
+
 
 
 
@@ -39,15 +49,29 @@ class _ProfileViewState extends State<ProfileView> {
       body: ListView(
         padding: EdgeInsets.all(20),
         children: [
-          SizedBox(height: 10,),
+          SizedBox(height: 20,),
             Center(child: Text("Profile Page", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 40))),
           SizedBox(height: 30,),
-          Container(
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10),
-            margin: EdgeInsets.only(left: 110,right: 110),
-            width: MediaQuery.of(context).size.width*.1,
-            decoration: BoxDecoration(color: Colors.redAccent,borderRadius: BorderRadius.circular(40)),
-            child: Image.asset("assests/img_1.png" ,height: 120,width: 120,),
+          GestureDetector(
+              onTap: () async {
+                final XFile? photo = await _picker.pickImage(source: ImageSource.gallery);
+                if (photo != null) {
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  await prefs.setString('profileImagePath', photo.path);
+                  setState(() {
+                    file = photo;
+                  });
+                }
+              },
+
+              child: Container(
+                height: 120,
+             padding: EdgeInsets.all(5),
+              margin: EdgeInsets.only(left: 110,right: 110),
+              width: 120,
+              decoration: BoxDecoration(color: Colors.grey,borderRadius: BorderRadius.circular(5)),
+              child: file != null ? Image.file(File(file!.path),fit: BoxFit.cover,) : Image.asset("assests/img_1.png" ,height: 120,width: 120,fit: BoxFit.fitHeight,),
+            ),
           ),
           SizedBox(height: 20,),
           Text(" My Details", style: AppWidget.bolStyle()),
@@ -96,7 +120,7 @@ class _ProfileViewState extends State<ProfileView> {
           ElevatedButton(
             onPressed: ()async{
               await AuthService().signout().then((value){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>front()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Front()));
               });
             },
             child:

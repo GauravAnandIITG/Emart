@@ -1,9 +1,8 @@
-import 'package:ecommerce/models/my_product.dart';
 import 'package:ecommerce/models/product.dart';
 import 'package:ecommerce/pages/cart_details.dart';
 import 'package:ecommerce/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:ecommerce/pages/home.dart';
+import 'package:ecommerce/pages/Home/home.dart';
 import 'package:provider/provider.dart';
 
 import '../widget/support.dart';
@@ -52,12 +51,13 @@ class DetailScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width*.95,
           decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(20)),
           child:
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(products.name.toUpperCase(),
-                    style: TextStyle(fontSize: 26,fontWeight: FontWeight.bold),),
-                  Text("\₹ ""${products.price}",style: TextStyle(fontSize: 22,color: Colors.black),)
+                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                  Text("\₹ ""${products.price}",style: TextStyle(fontSize: 16,color: Colors.black),)
                 ],
               ),),
           SizedBox(height: 10,),
@@ -69,7 +69,11 @@ class DetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(products.description,style: TextStyle(fontSize: 18,color: Colors.black),textAlign: TextAlign.justify,),
+              Wrap(
+                children: [
+                  Text(products.description,style: TextStyle(fontSize: 18,color: Colors.black),),
+                ],
+              ),
               SizedBox(height: 10,),
               Text("Available Colors",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),
               SizedBox(height: 10,),

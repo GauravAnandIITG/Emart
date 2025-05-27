@@ -1,3 +1,4 @@
+import 'package:ecommerce/models/viewmodel.dart';
 import 'package:ecommerce/pages/bottomnav.dart';
 import 'package:ecommerce/pages/login.dart';
 import 'package:ecommerce/pages/signup.dart';
@@ -6,7 +7,7 @@ import 'package:ecommerce/providers/favourite_proovider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'pages/front_page.dart';
-import 'pages/home.dart';
+import 'pages/Home/home.dart';
 import 'package:provider/provider.dart';
 Future<void> main()async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (_)=> ViewModelMain()),
       ChangeNotifierProvider(create: (_) => FavouriteProvider()),
       ChangeNotifierProvider(create: (_)=> CartProvider())
     ],
@@ -42,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: front(),
+      body: Front(),
     );
   }
 }

@@ -1,16 +1,16 @@
-import 'package:ecommerce/pages/home.dart';
+import 'package:ecommerce/pages/Home/home.dart';
 import 'package:ecommerce/pages/login.dart';
 import 'package:ecommerce/pages/signup.dart';
 import 'package:flutter/material.dart';
 
-class front extends StatefulWidget {
-  const front({super.key});
+class Front extends StatefulWidget {
+  const Front({super.key});
 
   @override
-  State<front> createState() => _frontState();
+  State<Front> createState() => _frontState();
 }
 
-class _frontState extends State<front> {
+class _frontState extends State<Front> {
   @override
 
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _frontState extends State<front> {
           )
 
           )],
-          
+
         )
       ),
 

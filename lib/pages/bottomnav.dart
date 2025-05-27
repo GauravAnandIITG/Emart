@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:ecommerce/pages/cart_details.dart';
 import 'package:ecommerce/pages/favorite_screen.dart';
-import 'package:ecommerce/pages/home.dart';
+import 'package:ecommerce/pages/Home/home.dart';
 import 'package:ecommerce/pages/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -16,13 +17,17 @@ class _BottomState extends State<Bottom> {
   late Home HomePage;
   late FavoriteScreen Favorite;
   late ProfileView Profile;
-  int tabindex=0;
+  late CartDetails cartDetails;
+  int tabindex = 0;
+
   @override
-  void initState(){
-    HomePage= Home();
+  void initState() {
+    HomePage = Home();
     Favorite = FavoriteScreen();
     Profile = ProfileView();
-    pages=[HomePage,Favorite,Profile];
+    cartDetails = CartDetails();
+
+    pages = [HomePage, Favorite,cartDetails, Profile ]; //
     super.initState();
   }
 
@@ -31,20 +36,21 @@ class _BottomState extends State<Bottom> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         height: 50,
-        backgroundColor: Colors.grey.shade200 ,
+        backgroundColor: Colors.grey.shade200,
         color: Colors.black87,
         animationDuration: Duration(milliseconds: 300),
-        onTap: (int index){
+        onTap: (int index) {
           setState(() {
-            tabindex= index;
+            tabindex = index;
           });
         },
-        items: [
-        Icon(Icons.home_outlined,color: Colors.white,),
-        Icon(Icons.favorite,color: Colors.white,),
-          Icon(Icons.perm_identity,color: Colors.white,)
-
-      ],),
+        items: const [
+          Icon(Icons.home_outlined, color: Colors.white),
+          Icon(Icons.favorite, color: Colors.white),
+          Icon(Icons.perm_identity, color: Colors.white),
+          Icon(Icons.shopping_bag_outlined, color: Colors.white), // 4th tab
+        ],
+      ),
       body: pages[tabindex],
     );
   }
